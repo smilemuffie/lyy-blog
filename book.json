@@ -1,0 +1,22 @@
+{
+  "title": "猫主席的博客",
+  "description": "前端知识点整理分享",
+  "author": "Ann Li",
+  "language": "zh-hans",
+  "plugins": [
+    "code",
+    "prism",
+    "splitter"
+  ],
+  "pluginsConfig": {
+    "code": {
+      "copyButtons": true
+    },
+    "prism": {
+      "css": [
+        "prismjs/themes/prism-tomorrow.css"
+      ]
+    }
+
+  }
+}

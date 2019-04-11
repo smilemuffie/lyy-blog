@@ -1,0 +1,340 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>01 部署静态网站（入门） · 猫主席的博客</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="Ann Li">
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-code/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-tomorrow.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+    <link rel="prev" href="./" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Docker
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="1.2.1" data-path="01.html">
+            
+                <a href="01.html">
+            
+                    
+                    01 部署静态网站（入门）
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >01 部署静态网站（入门）</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="01-&#x624B;&#x6478;&#x624B;&#x5E26;&#x4F60;&#x4F7F;&#x7528;docker-&#x90E8;&#x7F72;&#x9759;&#x6001;&#x7F51;&#x7AD9;&#xFF08;&#x5165;&#x95E8;&#x7BC7;&#xFF09;">01 &#x624B;&#x6478;&#x624B;&#x5E26;&#x4F60;&#x4F7F;&#x7528;Docker &#x90E8;&#x7F72;&#x9759;&#x6001;&#x7F51;&#x7AD9;&#xFF08;&#x5165;&#x95E8;&#x7BC7;&#xFF09;</h1>
+<blockquote>
+<p>**ECS &#x4F7F;&#x7528; Docker &#x90E8;&#x7F72;&#x9759;&#x6001;&#x7F51;&#x7AD9;&#x4E3A;&#x4F8B;
+&#x6211;&#x8D2D;&#x4E70;&#x7684;&#x662F;<a href="https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=1g8zd89z" target="_blank">&#x963F;&#x91CC;&#x4E91; ECS &#x670D;&#x52A1;&#x5668;</a></p>
+<p>&#x7CFB;&#x7EDF;&#x76D8;&#xFF1A;ubuntu**</p>
+</blockquote>
+<hr>
+<h2 id="1--&#x51C6;&#x5907;&#x5DE5;&#x4F5C;">1.  &#x51C6;&#x5907;&#x5DE5;&#x4F5C;</h2>
+<ol>
+<li>&#x5B66;&#x4E60;&#x4E0B; vim
+<img src="https://upload-images.jianshu.io/upload_images/7927229-8ff22673316b77ab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="vim&#x64CD;&#x4F5C;&#x901F;&#x67E5;"></li>
+<li><a href="https://www.cnblogs.com/myon/p/6242921.html" target="_blank">linux &#x5E38;&#x7528;&#x547D;&#x4EE4;</a></li>
+<li>&#x9700;&#x8981;&#x4E00;&#x53F0;&#x53EF;&#x4EE5;&#x88C5; Docker &#x7684;&#x673A;&#x5B50;&#xFF0C;windows &#x5BB6;&#x5EAD;&#x7248;&#x7684;&#x5B89;&#x88C5;&#x6709;&#x70B9;&#x590D;&#x6742;&#xFF0C;&#x65D7;&#x8230;&#x7248;&#x7684;&#x4F1A;&#x6BD4;&#x8F83;&#x597D;&#xFF0C; &#x6709;&#x94B1;&#x7684;&#x5C31; mac &#x5427;&#x3002;&#x5F53;&#x7136;&#xFF0C;&#x50CF;&#x6211;&#x8FD9;&#x79CD;windows&#x5BB6;&#x5EAD;&#x7248;&#xFF0C;&#x53C8;&#x6CA1;&#x94B1;&#x7684;&#xFF0C;&#x53C8;&#x61D2;&#x7684;&#xFF0C;&#x5C31;&#x53EA;&#x80FD;&#x5728; ECS &#x4E0A;&#x64CD;&#x4F5C;&#x4E86;</li>
+</ol>
+<h2 id="2-&#x7EC3;&#x624B;demo">2. &#x7EC3;&#x624B;demo</h2>
+<ol>
+<li>&#x9996;&#x5148;&#xFF0C;&#x767B;&#x5F55;&#x4F60;&#x7684; ECS &#x670D;&#x52A1;&#x5668;&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x963F;&#x91CC;&#x4E91;&#x63D0;&#x4F9B;&#x7684; terminal&#xFF0C;&#x8F93;&#x5165;&#x8FDE;&#x63A5;&#x5BC6;&#x7801;&#xFF0C;&#x5373;&#x53EF;&#x8FDB;&#x5165;
+<img src="https://upload-images.jianshu.io/upload_images/7927229-afc0db5a838aadbe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="&#x627E;&#x5230;&#x963F;&#x91CC;&#x4E91;&#x8FDC;&#x7A0B;&#x8FDE;&#x63A5;"></li>
+</ol>
+<p><img src="https://upload-images.jianshu.io/upload_images/7927229-4ef291b2f0d4bcf4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="&#x8FDB;&#x5165;&#x540E;&#x53F0;"></p>
+<ol>
+<li><p>&#x5B89;&#x88C5;&#x4E4B;&#x524D;&#x5148;&#x5347;&#x7EA7;&#x4E00;&#x4E0B;&#x7CFB;&#x7EDF; <code>apt-get upgrade</code>&#xFF0C;&#x5176;&#x6B21;&#x5B89;&#x88C5; Docker, <code>apt-get install docker</code>&#xFF0C;&#x5B89;&#x88C5;&#x5B8C;&#x6210;&#x540E;&#x6267;&#x884C; <code>docker -v</code>&#xFF0C; &#x51FA;&#x73B0; Docker &#x7248;&#x672C;&#x540E;&#xFF0C;&#x8BF4;&#x660E;&#x5B89;&#x88C5;&#x6210;&#x529F;
+<img src="https://upload-images.jianshu.io/upload_images/7927229-229a9ee367bbd465.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="docker&#x5B89;&#x88C5;&#x6210;&#x529F;"></p>
+</li>
+<li><p>&#x51C6;&#x5907;&#x9759;&#x6001;&#x9875;&#x9762;
+&#x5728;&#x6839;&#x76EE;&#x5F55;&#x4E0B;&#x65B0;&#x5EFA;&#x6587;&#x4EF6;&#x5939; <code>mkdir static_app</code>&#xFF0C;&#x8FDB;&#x5165;&#x65B0;&#x6587;&#x4EF6;&#x5939; <code>cd static_app</code>&#xFF0C;&#x4F7F;&#x7528;vim&#x8FDB;&#x884C;&#x521B;&#x5EFA;&#x7F16;&#x8F91;&#x9759;&#x6001;&#x9875;&#x9762; <code>vi index.html</code>&#xFF0C;&#x968F;&#x610F;&#x5199;&#x4E00;&#x4E9B;&#x5185;&#x5BB9;</p>
+</li>
+</ol>
+<pre class="language-"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">&gt;</span></span> Hello Docker container !!!!<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">&gt;</span></span>
+</code></pre><blockquote>
+<p>vim 
+&#x7F16;&#x8F91;&#x64CD;&#x4F5C;&#xFF1A;&#x6309;&#x4F4F;&#x5B57;&#x6BCD; <code>i</code> &#x5373;&#x4F1A;&#x8FDB;&#x5165;&#x7F16;&#x8F91;&#x72B6;&#x6001;
+&#x4FDD;&#x5B58;&#x64CD;&#x4F5C;&#xFF1A;&#x6309;&#x4F4F; <code>ecs</code> + <code>:</code>+ <code>wq!</code></p>
+</blockquote>
+<p>&#x5230;&#x8FD9;&#x4E00;&#x6B65;&#xFF0C;&#x9875;&#x9762;&#x51C6;&#x5907;&#x5B8C;&#x6210;&#xFF01;</p>
+<ol>
+<li>&#x51C6;&#x5907; <code>Dockerfile</code></li>
+</ol>
+<pre class="language-"><code>FROM nginx:alpine
+COPY . /usr/share/nginx/html
+</code></pre><p>Ok&#xFF0C;&#x81F3;&#x6B64;&#xFF0C;&#x4E24;&#x4E2A;&#x6587;&#x4EF6;&#x90FD;&#x51C6;&#x5907;&#x597D;&#x4E86;</p>
+<ol>
+<li><p>&#x8FDB;&#x884C;&#x6253;&#x5305; <code>docker build -t static-app:v1 .</code>&#xFF0C;&#x67E5;&#x770B;&#x955C;&#x50CF; <code>docker images</code>
+<img src="https://upload-images.jianshu.io/upload_images/7927229-f33104f3f004a25e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="&#x67E5;&#x770B;&#x955C;&#x50CF;"></p>
+</li>
+<li><p>&#x8FD0;&#x884C; <code>docker run -d -p 9002:80 --name static-app2 static-app:v1</code>&#xFF0C;&#x67E5;&#x770B;&#x542F;&#x52A8;&#x4E0E;&#x5426;<code>docker ps -a</code>&#xFF0C;STATUS &#x663E;&#x793A;&#x4E3A; Up &#x5373;&#x5DF2;&#x7ECF;&#x542F;&#x52A8;&#x4E86;
+<img src="https://upload-images.jianshu.io/upload_images/7927229-504799bd81d6fe99.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="&#x67E5;&#x770B;&#x5BB9;&#x5668;&#x662F;&#x5426;&#x542F;&#x52A8;"></p>
+</li>
+<li><p>&#x5728;&#x6D4F;&#x89C8;&#x5668;&#x4E2D;&#x8F93;&#x5165;&#x4F60;&#x7684;<code>&#x516C;&#x7F51;ip + &#x6620;&#x5C04;&#x7684;&#x7AEF;&#x53E3;&#x53F7;</code>&#xFF0C; &#x672C;&#x6559;&#x7A0B;&#x4E2D;&#x4F7F;&#x7528;&#x7684;&#x7AEF;&#x53E3;&#x53F7;&#x4E3A; 9002&#xFF0C; &#x5982;&#x679C;&#x662F;&#x672C;&#x5730;docker &#x4F7F;&#x7528;<code>localhost: +&#x6620;&#x5C04;&#x7AEF;&#x53E3;&#x53F7;</code>&#x5C31;&#x53EF;&#x4EE5;&#x4E86;
+<img src="https://upload-images.jianshu.io/upload_images/7927229-4605121ff754f0bb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="&#x6D4F;&#x89C8;&#x5668;&#x8BBF;&#x95EE;"></p>
+</li>
+</ol>
+<hr>
+<h5 id="&#x8865;&#x5145;&#xFF1A;">&#x8865;&#x5145;&#xFF1A;</h5>
+<p><strong>1. &#x6D4F;&#x89C8;&#x5668;&#x8BBF;&#x95EE;&#x4E0D;&#x4E86;&#x600E;&#x4E48;&#x529E;&#xFF1F;</strong>
+&#x5982;&#x679C;&#x6309;&#x7167;&#x4E0A;&#x8FF0;&#x6B65;&#x9AA4;&#xFF0C;&#x6253;&#x5F00;&#x6D4F;&#x89C8;&#x5668;&#x51FA;&#x73B0;&#x8BBF;&#x95EE;&#x5931;&#x8D25;&#xFF0C;&#x90A3;&#x4E48;&#xFF0C;&#x5F88;&#x591A;&#x60C5;&#x51B5;&#x662F;&#x7531;&#x4E8E;&#x6CA1;&#x6709;&#x914D;&#x7F6E;&#x5B89;&#x5168;&#x7EC4;&#x89C4;&#x5219;
+<img src="https://upload-images.jianshu.io/upload_images/7927229-4f4af5218eea0e28.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p><strong>&#x6DFB;&#x52A0;&#x4E00;&#x4E2A;&#x5B89;&#x5168;&#x7EC4;&#x89C4;&#x5219;&#x5C31;&#x597D;&#x4E86;</strong></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/7927229-a987d40aa80e6d4a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="&#x6DFB;&#x52A0;&#x5B89;&#x5168;&#x7EC4;&#x89C4;&#x5219;"></p>
+<p>&#x518D;&#x6B21;&#x6253;&#x5F00;&#x7F51;&#x9875;&#xFF0C;&#x5E94;&#x8BE5;&#x5C31;&#x80FD;&#x770B;&#x5230;&#x4E86;</p>
+<p><a href="https://www.jianshu.com/u/67f97e223596" target="_blank">&#x6211;&#x7684;&#x7B80;&#x4E66;</a>,&#x6B22;&#x8FCE;&#x5173;&#x6CE8;~</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="./" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Docker">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"01 部署静态网站（入门）","level":"1.2.1","depth":2,"previous":{"title":"Docker","level":"1.2","depth":1,"path":"docker/README.md","ref":"docker/README.md","articles":[{"title":"01 部署静态网站（入门）","level":"1.2.1","depth":2,"path":"docker/01.md","ref":"docker/01.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["code","prism","splitter","livereload"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"livereload":{},"splitter":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Ann Li","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"猫主席的博客","language":"zh-hans","gitbook":"*","description":"前端知识点整理分享"},"file":{"path":"docker/01.md","mtime":"2019-04-11T06:16:24.979Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-04-11T06:24:48.838Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-code/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
